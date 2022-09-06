@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo list example</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <h1>My Todo list</h1>
+      <div>
+        <label for="item">Enter a item:</label>
+        <input type="text" name="item" v-model="task">
+        <select name="todo-status" v-model="status">
+          <option value=""></option>
+          <option value="1">IMCOMPLETE</option>
+          <option value="2">PROGRESS</option>
+          <option value="3">PENDING</option>
+          <option value="4">COMPLETE</option>
+        </select>
+        <button v-if="type === 'add'" @click="addItem">Add item</button>
+        <button v-if="type === 'edit'" @click="editItem">Edit item</button>
+        <button @click="resetForm">Cancel</button>
+      </div>
+
+      <ul>
+        <li v-for="todo in todos">
+          <span>{{todo.task}} - {{getStatusName(todo.status)}}</span>
+          <button @click="selectEditItem(todo)">edit</button>
+          <button @click="deleteItem(todo.id)">delete</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script type="module" src="/index.js"></script>
+  </body>
+</html>
